@@ -1,5 +1,7 @@
 package com.kafka.EmailNotificationService.config;
 
+import com.kafka.EmailNotificationService.error.NonRetryableException;
+import com.kafka.EmailNotificationService.error.RetryableException;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -19,6 +21,7 @@ import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.util.backoff.FixedBackOff;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +56,10 @@ public class KafkaConsumerConfiguration {
     // customize it by
     // providing a topic name resolver to the DeadLetterPublishingRecoverer
     DefaultErrorHandler errorHandler =
-        new DefaultErrorHandler(new DeadLetterPublishingRecoverer(kafkaTemplate));
+        new DefaultErrorHandler(
+            new DeadLetterPublishingRecoverer(kafkaTemplate), new FixedBackOff(5000, 3));
+    errorHandler.addNotRetryableExceptions(NonRetryableException.class);
+    errorHandler.addRetryableExceptions(RetryableException.class);
 
     ConcurrentKafkaListenerContainerFactory<String, Object> factory =
         new ConcurrentKafkaListenerContainerFactory<>();
