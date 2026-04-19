@@ -17,21 +17,22 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    ProductService productService;
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+  ProductService productService;
 
-    @PostMapping
-    public ResponseEntity<Object> createProduct(@RequestBody CreateProductRestModel product){
-        String productId = null;
-        try {
-            productId = productService.createProduct(product);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ErrorMessage(new Date(), e.getMessage(),"Error creating product"));
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(productId);
+  public ProductController(ProductService productService) {
+    this.productService = productService;
+  }
+
+  @PostMapping
+  public ResponseEntity<Object> createProduct(@RequestBody CreateProductRestModel product) {
+    String productId = null;
+    try {
+      productId = productService.createProduct(product);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(new ErrorMessage(new Date(), e.getMessage(), "Error creating product"));
     }
+    return ResponseEntity.status(HttpStatus.CREATED).body(productId);
+  }
 }

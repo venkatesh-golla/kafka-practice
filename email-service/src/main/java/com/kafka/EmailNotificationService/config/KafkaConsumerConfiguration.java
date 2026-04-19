@@ -16,25 +16,29 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConsumerConfiguration {
-    @Autowired
-    Environment env;
+  @Autowired Environment env;
 
-    @Bean
-    public ConsumerFactory<String,Object> consumerFactory(){
-        Map<String, Object> config = new HashMap<>();
-        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, env.getProperty("spring.kafka.consumer.bootstrap-servers"));
-        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES, env.getProperty("spring.kafka.consumer.properties.spring.json.trusted.packages"));
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, env.getProperty("spring.kafka.consumer.group-id"));
+  @Bean
+  public ConsumerFactory<String, Object> consumerFactory() {
+    Map<String, Object> config = new HashMap<>();
+    config.put(
+        ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
+        env.getProperty("spring.kafka.consumer.bootstrap-servers"));
+    config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+    config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+    config.put(
+        JsonDeserializer.TRUSTED_PACKAGES,
+        env.getProperty("spring.kafka.consumer.properties.spring.json.trusted.packages"));
+    config.put(ConsumerConfig.GROUP_ID_CONFIG, env.getProperty("spring.kafka.consumer.group-id"));
 
-        return new DefaultKafkaConsumerFactory<>(config);
-    }
+    return new DefaultKafkaConsumerFactory<>(config);
+  }
 
-    @Bean
-    ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory(){
-        ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
-        return factory;
-    }
+  @Bean
+  ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, Object> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(consumerFactory());
+    return factory;
+  }
 }

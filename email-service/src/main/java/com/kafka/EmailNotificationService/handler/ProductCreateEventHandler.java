@@ -10,16 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 @KafkaListener(topics = "product-created-events-topic", groupId = "product-created-events-v2")
 public class ProductCreateEventHandler {
-    private final Logger LOGGER = LoggerFactory.getLogger(ProductCreateEventHandler.class) ;
-   @KafkaHandler
-    public void handle(ProductCreatedDTO productCreatedDTO) {
-        LOGGER.info("Received product created event for product with id: {}, name: {}, price: {}, quantity: {}",
-                productCreatedDTO.getProductId(),
-                productCreatedDTO.getName(),
-                productCreatedDTO.getPrice(),
-                productCreatedDTO.getQuantity());
+  private final Logger LOGGER = LoggerFactory.getLogger(ProductCreateEventHandler.class);
 
-
-
-    }
+  @KafkaHandler
+  public void handle(ProductCreatedDTO productCreatedDTO) {
+    LOGGER.info(
+        "Received product created event for product with id: {}, name: {}, price: {}, quantity: {}",
+        productCreatedDTO.getProductId(),
+        productCreatedDTO.getName(),
+        productCreatedDTO.getPrice(),
+        productCreatedDTO.getQuantity());
+  }
 }

@@ -14,10 +14,10 @@ This project demonstrates a **Kafka-based event-driven microservices architectur
 
 It consists of:
 
-- 📦 **Product Service (Producer)** → Publishes product events to Kafka  
-- 📧 **Email Notification Service (Consumer)** → Listens and processes events  
-- 🧠 **Core Library** → Shared DTOs and event models  
-- 🐳 **Kafka Infrastructure** → Running via Docker Compose  
+- 📦 **Product Service (Producer)** → Publishes product events to Kafka
+- 📧 **Email Notification Service (Consumer)** → Listens and processes events
+- 🧠 **Core Library** → Shared DTOs and event models
+- 🐳 **Kafka Infrastructure** → Running via Docker Compose
 
 ---
 
@@ -69,9 +69,11 @@ kafka/
 # 🐳 Kafka Setup (Windows + Docker)
 
 ## 1. Install Docker Desktop
+
 https://www.docker.com/products/docker-desktop/
 
 Enable:
+
 - WSL2 backend
 - Restart system if required
 

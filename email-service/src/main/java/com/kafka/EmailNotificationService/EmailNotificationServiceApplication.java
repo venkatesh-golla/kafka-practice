@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EmailNotificationServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EmailNotificationServiceApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(EmailNotificationServiceApplication.class, args);
+  }
 }
