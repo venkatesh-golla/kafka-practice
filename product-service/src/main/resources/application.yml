@@ -1,0 +1,21 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: ProductsMicroservice
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 20   # optional
+
+      properties:
+        delivery.timeout.ms: 3000
+        request.timeout.ms: 2000
+        linger.ms: 100
+        retry.backoff.ms: 1000
+        enable.idempotence: true

@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: product-created-events-v2
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.kafka.*
+        spring.json.value.default.type: com.kafka.core.ProductCreatedDTO
+        spring.json.use.type.headers: false
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework.kafka: DEBUG
