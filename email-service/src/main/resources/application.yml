@@ -11,9 +11,22 @@ spring:
         spring.json.value.default.type: com.kafka.core.ProductCreatedDTO
         spring.json.use.type.headers: false
 
+  datasource:
+    username: root
+    password: root
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+
 server:
   port: 0
 
-logging:
-  level:
-    org.springframework.kafka: DEBUG
+#logging:
+#  level:
+#    org.springframework.kafka: DEBUG
