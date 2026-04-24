@@ -40,7 +40,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
     count = 1,
     controlledShutdown = true,
     topics = {"product-created-events-topic"})
-@SpringBootTest(properties = "spring.kafka.bootstrap-servers=localhost:9092")
+@SpringBootTest(
+    properties = {
+      "spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
+      "spring.kafka.consumer.bootstrap-servers=${spring.embedded.kafka.brokers}"
+    })
 public class ProductsServiceIntegrationTest {
   @Autowired private ProductService productService;
 
